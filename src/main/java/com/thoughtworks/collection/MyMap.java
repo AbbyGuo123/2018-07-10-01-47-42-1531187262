@@ -2,6 +2,7 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -27,7 +28,18 @@ public class MyMap {
     }
 
     public List<String> mapLetters() {
-        throw new NotImplementedException();
+        List<String> list = new ArrayList<>();
+        boolean flag = false;
+        for(int i=0;i<array.size();i++) {
+            String a = "";
+            String b = "";
+            a = letters[(array.get(i)-1) % 26];
+            if(array.get(i) / 26>0) {
+                b = letters[(array.get(i)-1) / 26-1];
+            }
+            list.add(b+a);
+        }
+        return list;
     }
 
     public List<Integer> sortFromBig() {

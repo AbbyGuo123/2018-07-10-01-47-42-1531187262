@@ -2,7 +2,10 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reduce {
 
@@ -13,42 +16,70 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        throw new NotImplementedException();
+        return this.arrayList.stream().max((x,y)->x-y).get();
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+        return this.arrayList.stream().min((x,y)->x-y).get();
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        return (double)(this.arrayList.stream().reduce((sum,item)->sum+item).get())/(double) this.arrayList.size();
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
+        this.arrayList.stream().sorted();
+        int k = arrayList.size();
+        if(k%2==0){
+            return (double) (arrayList.get(k/2-1)+arrayList.get(k/2))/2;
+        }
+        return arrayList.get(k/2);
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+        return this.arrayList.stream().filter(x->x%2==0).collect(Collectors.toList()).get(0);
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+        for(int i=0;i<this.arrayList.size();i++){
+            if(this.arrayList.get(i)%2==0)
+                return i;
+        }
+        return -1;
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        String arrayListA = arrayList.toString();
+        String arrayListB = this.arrayList.toString();
+        return arrayListA.equals(arrayListB);
     }
 
     public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+//        this.arrayList = this.arrayList.stream().sorted().collect(Collectors.toList());
+        int index = this.arrayList.size()/2;
+        if(this.arrayList.size()%2!=0){
+            return (double) this.arrayList.get(index);
+        }
+        else
+            return ((double)this.arrayList.get(index)+(double)this.arrayList.get(index-1))/2;
+
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        Collections.reverse(this.arrayList);
+        for(int x:this.arrayList){
+            if(x%2==1)
+                return x;
+        }
+        return -1;
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        Collections.reverse(this.arrayList);
+        for(int x =this.arrayList.size()-1;x>=0;x--){
+            if(x%2==1)
+                return x;
+        }
+        return -1;
     }
 }
